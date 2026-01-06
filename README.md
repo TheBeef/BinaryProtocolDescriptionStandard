@@ -1,6 +1,3 @@
-“
-”
-
 <p align="center">Binary Protocol Documentation Standard</p>
 <p align="center">1.0</p>
 
@@ -95,17 +92,17 @@ The binary protocol documentation standard has a number of goals:
 | Literal           | Literal Value     | This byte does not have a name and is just the literal value.  This is a number can uses C number prefixes (0x for hex, 0 for octal, etc) or a string surrounded by quotes ("). | |
 | =                 | Assigned value    | The field will be have this value (or set of values).  This is the same as a literal but comes after the name of the field. | 0x3D |
 | \|                | OR                | Can only be used with values.  When you want to use a set of values instead of just one you place an \| between the values and it counts as this value or this other value. | 0x7C |
-| :                 | Size              | The number of bytes this field is (if not provided defaults to 1, so “cmd” and “cmd:1” are the same). | 0x3A |
-| ...               | Match Any         | This is only used as a ‘Size’ with the size symbol (:).  It matches any number of bytes until it finds a match for the next field.  This size can match 0 bytes. | 0x2E&nbsp;0x2E&nbsp;0x2E |
+| :                 | Size              | The number of bytes this field is (if not provided defaults to 1, so "cmd" and "cmd:1" are the same). | 0x3A |
+| ...               | Match Any         | This is only used as a ‘Size' with the size symbol (:).  It matches any number of bytes until it finds a match for the next field.  This size can match 0 bytes. | 0x2E&nbsp;0x2E&nbsp;0x2E |
 | ()                | Data Type         | What type of data is this field. If you use this, you must also specify the size (:). | 0x28&nbsp;0x29 |
 | "                 | Quote             | A quote that marks the start and end of a string value.  Used with string literals. | 0x22 |
 
 ### Fields
 A field start with a < symbol and ends with a > symbol.  A field is a group of bytes together and makes up a base element in the protocol.  A field includes information about the group such as size, literal values, and type information.
 
-If the field is a literal then it is just the literal and does not use any other attributes expect the OR (|) attribute.  The literal can be a number or a string.  If it’s a number then it uses C number prefixes (0x for hex, 0 for octal, etc) and can be any number of bytes (although going over 8 bytes (64 bit) might make parsers fail).
+If the field is a literal then it is just the literal and does not use any other attributes expect the OR (|) attribute.  The literal can be a number or a string.  If it's a number then it uses C number prefixes (0x for hex, 0 for octal, etc) and can be any number of bytes (although going over 8 bytes (64 bit) might make parsers fail).
 
-If it’s a string then it uses quotes around it and will be use a size the same as the string length.  For example <"Dog"|"Fish"> will match a 3 byte string or a 4 byte string.
+If it's a string then it uses quotes around it and will be use a size the same as the string length.  For example <"Dog"|"Fish"> will match a 3 byte string or a 4 byte string.
 
 If the field is not a literal then it starts with the name of the field followed by any attributes.  For example <Start>, <Start:2>, <Start=0xFF>.
 
@@ -117,7 +114,7 @@ If the field is not a literal then it starts with the name of the field followed
 | <32>              | A literal that must the 32 decimal. |
 | <"Cat">           | A literal that must match 0x43, 0x61, and 0x74 |
 | <"Cat"\|"Dog">    | A literal that must match 0x43, 0x61, and 0x74 OR 0x44 0x6F and 0x67 |
-| \<Start\>         | A field with the name of "Start".  It can be any 1 byte value (the value doesn’t mater only that it is 1 byte long). |
+| \<Start\>         | A field with the name of "Start".  It can be any 1 byte value (the value doesn't mater only that it is 1 byte long). |
 | \<Start:2\>       | A field with the name "Start" that is 2 bytes in length.  The value doesn't mater, just that it is 2 bytes in length. |
 | \<Start=0x55\>    | A field with the name "Start" that is 1 byte long and must be the value 55 Hex. |
 
@@ -138,9 +135,9 @@ The assigned value is the same as a Literal value but with a field name.  The li
 #### Examples
 | BPDS                      | Description |
 | ---                       | ---         |
-| <Name=0xFF>               | Field has the name “Name” as must match the value 0xFF |
-| \<Start=0xFF\|0xEE\>      | Field has the name “Start” and can match 0xFF or 0xEE |
-| <Command="Hello"\|"Bye">  | Field has the name “Command” and can match 0x48 0x65 0x6c 0x6c 0x6f, OR 0x42 0x79 0x65 |
+| <Name=0xFF>               | Field has the name "Name" as must match the value 0xFF |
+| \<Start=0xFF\|0xEE\>      | Field has the name "Start" and can match 0xFF or 0xEE |
+| <Command="Hello"\|"Bye">  | Field has the name "Command" and can match 0x48 0x65 0x6c 0x6c 0x6f, OR 0x42 0x79 0x65 |
 
 ### OR
 The or symbol (|) is used to say any literal from a set of literal can be a match.  These can be numbers or strings (but they can not be mixed).  You list all the values you which to accept with a pipe bar between them.  This is valid in assigned values and literal values.
@@ -149,8 +146,8 @@ The or symbol (|) is used to say any literal from a set of literal can be a matc
 | BPDS                      | Description |
 | ---                       | ---         |
 | <0x55\|0xAA\|0x00>        | A literal that must be 55 hex OR AA hex OR 00 hex. |
-| <Start=0xFF\|0xEE>        | Field has the name “Start” and can match 0xFF OR 0xEE |
-| <Command="Hello"\|"Bye">  | Field has the name “Command” and can match 0x48 0x65 0x6c 0x6c 0x6f, OR 0x42 0x79 0x65 |
+| <Start=0xFF\|0xEE>        | Field has the name "Start" and can match 0xFF OR 0xEE |
+| <Command="Hello"\|"Bye">  | Field has the name "Command" and can match 0x48 0x65 0x6c 0x6c 0x6f, OR 0x42 0x79 0x65 |
 
 ### Size
 The size symbol tells you how many bytes this field uses.  The size symbol uses the colon (:) and must follow a field name.  If the size symbol is not provided then the size of the field will be 1 byte.
@@ -164,18 +161,18 @@ This can also be set to match any (...) in which case it means that the size of 
 | ---                       | ---         |
 | \<Len:2\>                 | The length is 2 bytes |
 | \<Data:32\>               | This field is 32 bytes long |
-| \<Start:2=0xDEAD\>        | The field “Start” is 2 bytes in size and must match the value 0xDEAD |
-| \<Other:3="Cat"\>         | The field “Other” is 3 bytes and must match 0x43 0x61 0x74 |
-| \<More:Prev\>             | The field “More” uses the value from the previous “Prev” field. |
+| \<Start:2=0xDEAD\>        | The field "Start" is 2 bytes in size and must match the value 0xDEAD |
+| \<Other:3="Cat"\>         | The field "Other" is 3 bytes and must match 0x43 0x61 0x74 |
+| \<More:Prev\>             | The field "More" uses the value from the previous "Prev" field. |
 
 ### Match Any
 The match any symbol (...) means match all bytes until the next field is satisfied.
 
-For example if you have <Data:...><0x0A> this matches all chars until a 0x0A (new line) char is found (the new line will not be part of ‘Data’).  So this will match (\n = 0x0A):
+For example if you have <Data:...><0x0A> this matches all chars until a 0x0A (new line) char is found (the new line will not be part of ‘Data').  So this will match (\n = 0x0A):
 | Stream            | Data Field    | 0x0A Field | Description |
 | ---               | ---           | ---        | ---         |
-| Test\n            | Test          | 0x0A       | The string “Test” will be in data |
-| A long string\n   | A long string | 0x0A       | The string “A long string” will be in data |
+| Test\n            | Test          | 0x0A       | The string "Test" will be in data |
+| A long string\n   | A long string | 0x0A       | The string "A long string" will be in data |
 | \n                |               | 0x0A       | A blank string will be in data |
 
 If the next field is more than 1 byte then all the bytes have to match and will not be part of the field using the match any symbol.
@@ -184,14 +181,14 @@ If the next field is more than 1 byte then all the bytes have to match and will 
 | BPDS                                                  | Description |
 | ---                                                   | ---         |
 | \<Data:...\>\<0x00\>                                  | A zero terminated string |
-| \<CmdNum:...\>\<EndOfCmd="END"\>                      | A string that must end is the string “END”.  So 0x31 0x32 0x45 0x4E 0x44 would end up with a CmdNum field = to “12”. |
+| \<CmdNum:...\>\<EndOfCmd="END"\>                      | A string that must end is the string "END".  So 0x31 0x32 0x45 0x4E 0x44 would end up with a CmdNum field = to "12". |
 | \<Comment:...\>\<EndOfComment="."\>                   | A comment that ends with a period. |
-| \<0xFF\>\<Cmd\>\<Data:2\>\<Note:...\>\<0x00\>\<0x77\> | A longer definition with a ‘Note’ field that is variable size terminated by a NULL char. |
+| \<0xFF\>\<Cmd\>\<Data:2\>\<Note:...\>\<0x00\>\<0x77\> | A longer definition with a ‘Note' field that is variable size terminated by a NULL char. |
 
 ### Data Type
 Specifies the type of data in this field.  This lets you know how the data in the field should be interpenetrated.  This is normally out side this standard so it is considered a hint to the reader.
 
-This symbol uses the open and close brackets () and a string.  This always follows the ‘Size’ symbols value, so the size must be provided to use the ‘Data Type’ symbol (even if the size is 1).  This is so the correct number of bytes can be read even if the parser does not understand the ‘Data Type’.
+This symbol uses the open and close brackets () and a string.  This always follows the ‘Size' symbols value, so the size must be provided to use the ‘Data Type' symbol (even if the size is 1).  This is so the correct number of bytes can be read even if the parser does not understand the ‘Data Type'.
 
 You may provide your own data types and provide a definition elsewhere in your documentation.  There are a number of predefined standard types (based on C):
 
@@ -216,10 +213,10 @@ You may provide your own data types and provide a definition elsewhere in your d
 | \<Number:4(float)\>       | A floating point value 4 bytes in size. |
 
 ## Endian
-This standard does not set an endian, you must provide this information in your documentation.  Providing an endian symbol would not be intuitive as there isn’t a widely known symbol for providing this information.
+This standard does not set an endian, you must provide this information in your documentation.  Providing an endian symbol would not be intuitive as there isn't a widely known symbol for providing this information.
 
 ## Reserved Symbols
-This is a note for future versions of this standard.  Math symbols have not being used for any of the known symbols (these symbols are “+”, “-”, “/”, and “*”).  This is keep the option of adding math blocks in the future.  It is not clear if adding math would be a good idea or not, so the symbols have been listed as reserved.
+This is a note for future versions of this standard.  Math symbols have not being used for any of the known symbols (these symbols are "+", "-", "/", and "*").  This is keep the option of adding math blocks in the future.  It is not clear if adding math would be a good idea or not, so the symbols have been listed as reserved.
 
 # Tips
 ## Optional fields
@@ -253,7 +250,7 @@ This is a blank Autodoc you can use if you decide to use this format for your de
 # More Examples
 These are more examples of the made up protocol.  It shows optional fields, different fields based on command type, and a number of other details.
 
-This is an example of the reply from the draw command described in the “Example” sections above.
+This is an example of the reply from the draw command described in the "Example" sections above.
 
 ```
 /*******************************************************************************
@@ -282,7 +279,7 @@ This is an example of the reply from the draw command described in the “Example”
  ******************************************************************************/
 ```
 
-This is an example of an optional field.  This documents the ‘Prop’ field and all the options that can used.  It provides only the details of the ‘Prop’ field but does show it in relation to the other fields (the details for the other fields are found elsewhere).
+This is an example of an optional field.  This documents the ‘Prop' field and all the options that can used.  It provides only the details of the ‘Prop' field but does show it in relation to the other fields (the details for the other fields are found elsewhere).
 
 ```
 /*******************************************************************************
