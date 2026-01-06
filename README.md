@@ -1,8 +1,6 @@
 <p align="center">Binary Protocol Documentation Standard</p>
 <p align="center">1.0</p>
 
-[Headers](#headers)
-
 # Rational
 When working with binary protocols the format and details of the documentation have been inconstant and often hard to follow.  The binary protocol documentation standard (BPDS) tries to fix this, using a standard format that is human readable, intuitive, and text based.  The hope is that will improve the readability of the documentation for byte based protocols.
 
