@@ -1,5 +1,5 @@
 <p align="center">Binary Protocol Documentation Standard</p>
-<p style='text-align:center'>1.0</p>
+<p align="center">1.0</p>
 
 # Rational
 When working with binary protocols the format and details of the documentation have been inconstant and often hard to follow.  The binary protocol documentation standard (BPDS) tries to fix this, using a standard format that is human readable, intuitive, and text based.  The hope is that will improve the readability of the documentation for byte based protocols.
@@ -59,3 +59,40 @@ Documented in Autodoc format (as a C comment):
  *    
  ******************************************************************************/
 ```
+
+As you can see when used with an Autodoc style comment it is very effective at explaining the protocol and can be included directly with the handling code.
+
+# Goals
+The binary protocol documentation standard has a number of goals:
+
+| Human readable    | AscII characters are used for the symbols that mark parts of the specification, these are easy to pick out from the text and are used extensively in programming.  The field names and labels are human readable strings. |
+| Machine readable  | Computers should be able to parse a BPDS definition string to be able to act on a byte stream encoded with in that format.  This is useful for things like generic highlighters or error checkers. |
+| Intuitive         | Someone should be able to look at a BPDS definition string and more or less understand how to interpret the meaning without needing to read a document explaining what BPDS is or how it works. |
+| Single line       | A single line should be able to describe a packet.  This keeps the description compact and allows it be added to larger documents. |
+| Text based        | Sticking with a text based description means it can be easily copied and embedded in other documents like in source code. |
+| Byte based        | Most protocols are byte based and trying to support arbitrary or variable bit protocols would make the standard to complex, so to keep things simple it is restricted to bytes. |
+
+# Terminology
+| Field             | A grouping of bytes that form an element of the protocol.  This maybe a single byte or multiple bytes together.  This identifies a part of the message.  For example the length would be considered a field that indicates the length in the message. |
+| Literal           | A constant value that must match this value in the byte stream. |
+| Symbol            | A byte that is recognized as having meaning in the BPDS.  For example < and > mark the start and end of a field. |
+| Field name        | The name of a field.  This is alpha numeric, starting with a letter. |
+| Label             | When a size refers to a previous field name it is called a label.
+| Value             | The value of a field when a literal is used.  This maybe a number or a string. |
+| Attribute         | An attribute is a symbol that modifies a field.  An example is the Size (:) attribute. |
+| Definition        | The whole BPDS string that defines a matching set of fields. |
+
+# Format
+## Symbols
+
+| Symbol            | Name              | Description | Value |
+| <>                | Field             | Marks the start and end of a field.  A field group multiple bytes together and marks an element in the protocol. | 0x3C 0x3E |
+| Literal           | Literal Value     | This byte does not have a name and is just the literal value.  This is a number can uses C number prefixes (0x for hex, 0 for octal, etc) or a string surrounded by quotes ("). |
+| =                 | Assigned value    | The field will be have this value (or set of values).  This is the same as a literal but comes after the name of the field. | 0x3D |
+| \|                | OR                | Can only be used with values.  When you want to use a set of values instead of just one you place an | between the values and it counts as this value or this other value. | 0x7C |
+| :                 | Size              | The number of bytes this field is (if not provided defaults to 1, so “cmd” and “cmd:1” are the same). | 0x3A |
+| ...               | Match Any         | This is only used as a ‘Size’ with the size symbol (:).  It matches any number of bytes until it finds a match for the next field.  This size can match 0 bytes. | 0x2E 0x2E 0x2E |
+| ()                | Data Type         | What type of data is this field. If you use this, you must also specify the size (:). | 0x28 0x29 |
+| "                 | Quote             | A quote that marks the start and end of a string value.  Used with string literals. | 0x22 |
+
+
