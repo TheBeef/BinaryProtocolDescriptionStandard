@@ -162,9 +162,9 @@ This can also be set to match any (...) in which case it means that the size of 
 #### Examples
 | BPDS                      | Description |
 | ---                       | ---         |
-| <Len:2>                   | The length is 2 bytes |
-| <Data:32>                 | This field is 32 bytes long |
-| <Start:2=0xDEAD>          | The field “Start” is 2 bytes in size and must match the value 0xDEAD |
-| <Other:3="Cat">           | The field “Other” is 3 bytes and must match 0x43 0x61 0x74 |
-| <More:Prev>               | The field “More” uses the value from the previous “Prev” field. |
+| \<Len:2\>                 | The length is 2 bytes |
+| \<Data:32\>               | This field is 32 bytes long |
+| \<Start:2=0xDEAD\>        | The field “Start” is 2 bytes in size and must match the value 0xDEAD |
+| \<Other:3="Cat"\>         | The field “Other” is 3 bytes and must match 0x43 0x61 0x74 |
+| \<More:Prev\>             | The field “More” uses the value from the previous “Prev” field. |
 
