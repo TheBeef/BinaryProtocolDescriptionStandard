@@ -1,4 +1,4 @@
-<p style='text-align:center'>Binary Protocol Documentation Standard</p>
+<p align="center">Binary Protocol Documentation Standard</p>
 <p style='text-align:center'>1.0</p>
 
 # Rational
