@@ -97,4 +97,12 @@ The binary protocol documentation standard has a number of goals:
 | ()                | Data Type         | What type of data is this field. If you use this, you must also specify the size (:). | 0x28&nbsp;0x29 |
 | "                 | Quote             | A quote that marks the start and end of a string value.  Used with string literals. | 0x22 |
 
+### Fields
+A field start with a < symbol and ends with a > symbol.  A field is a group of bytes together and makes up a base element in the protocol.  A field includes information about the group such as size, literal values, and type information.
+
+If the field is a literal then it is just the literal and does not use any other attributes expect the OR (|) attribute.  The literal can be a number or a string.  If it’s a number then it uses C number prefixes (0x for hex, 0 for octal, etc) and can be any number of bytes (although going over 8 bytes (64 bit) might make parsers fail).
+
+If it’s a string then it uses quotes around it and will be use a size the same as the string length.  For example <"Dog"|"Fish"> will match a 3 byte string or a 4 byte string.
+
+If the field is not a literal then it starts with the name of the field followed by any attributes.  For example <Start>, <Start:2>, <Start=0xFF>.
 
