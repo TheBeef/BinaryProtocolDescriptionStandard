@@ -168,3 +168,15 @@ This can also be set to match any (...) in which case it means that the size of 
 | \<Other:3="Cat"\>         | The field “Other” is 3 bytes and must match 0x43 0x61 0x74 |
 | \<More:Prev\>             | The field “More” uses the value from the previous “Prev” field. |
 
+### Match Any
+The match any symbol (...) means match all bytes until the next field is satisfied.
+
+For example if you have <Data:...><0x0A> this matches all chars until a 0x0A (new line) char is found (the new line will not be part of ‘Data’).  So this will match (\n = 0x0A):
+| Stream            | Data Field    | 0x0A Field | Description |
+| ---               | ---           | ---        | ---         |
+| Test\n            | Test          | 0x0A       | The string “Test” will be in data |
+| A long string\n   | A long string | 0x0A       | The string “A long string” will be in data |
+| \n                |               | 0x0A       | A blank string will be in data |
+
+If the next field is more than 1 byte then all the bytes have to match and will not be part of the field using the match any symbol.
+
