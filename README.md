@@ -107,7 +107,7 @@ If it’s a string then it uses quotes around it and will be use a size the same a
 If the field is not a literal then it starts with the name of the field followed by any attributes.  For example <Start>, <Start:2>, <Start=0xFF>.
 
 #### Examples
-| BPDS Definition   | Description |
+| BPDS              | Description |
 | ---               | ---         |
 | <0x55>            | A literal that must be 55 hex. |
 | <0x55\|0xAA>      | A literal that must be 55 hex OR AA hex. |
@@ -117,3 +117,15 @@ If the field is not a literal then it starts with the name of the field followed
 | \<Start\>         | A field with the name of "Start".  It can be any 1 byte value (the value doesn’t mater only that it is 1 byte long). |
 | \<Start:2\>       | A field with the name "Start" that is 2 bytes in length.  The value doesn't mater, just that it is 2 bytes in length. |
 | \<Start=0x55\>    | A field with the name "Start" that is 1 byte long and must be the value 55 Hex. |
+
+### Literal Value
+A literal value is a constant value that must match.  These are numbers or strings.  Strings are wrapped in quotes.  Numbers use C number prefixes (0x for hex, 0 for octal, etc).
+
+#### Examples
+| BPDS              | Description |
+| ---               | ---         |
+| <0xFF>            | Must match the value 255 |
+| <0xFF\|0xEE>      | Can match 0xFF OR 0xEE |
+| <"Hello">         | Must match 0x48 0x65 0x6c 0x6c 0x6f |
+| <"Hello"\|"Bye">  | Can match 0x48 0x65 0x6c 0x6c 0x6f, OR 0x42 0x79 0x65 |
+
