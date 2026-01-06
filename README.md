@@ -64,7 +64,8 @@ As you can see when used with an Autodoc style comment it is very effective at e
 
 # Goals
 The binary protocol documentation standard has a number of goals:
-
+| Goal              | Description |
+| ---               | ---         |
 | Human readable    | AscII characters are used for the symbols that mark parts of the specification, these are easy to pick out from the text and are used extensively in programming.  The field names and labels are human readable strings. |
 | Machine readable  | Computers should be able to parse a BPDS definition string to be able to act on a byte stream encoded with in that format.  This is useful for things like generic highlighters or error checkers. |
 | Intuitive         | Someone should be able to look at a BPDS definition string and more or less understand how to interpret the meaning without needing to read a document explaining what BPDS is or how it works. |
@@ -73,8 +74,9 @@ The binary protocol documentation standard has a number of goals:
 | Byte based        | Most protocols are byte based and trying to support arbitrary or variable bit protocols would make the standard to complex, so to keep things simple it is restricted to bytes. |
 
 # Terminology
-| Field             | A grouping of bytes that form an element of the protocol.  This maybe a single byte or multiple bytes together.  This identifies a part of the message.  For example the length would be considered a field that indicates the length in the message. |
-| Literal           | A constant value that must match this value in the byte stream. |
+| Term              | Description |
+| ---               | ---         |
+| Field             | A grouping of bytes that form an element of the protocol.  This maybe a single byte or multiple bytes together.  This identifies a part of the message.  For example the length would be considered a field that indicates the length in the message. || Literal           | A constant value that must match this value in the byte stream. |
 | Symbol            | A byte that is recognized as having meaning in the BPDS.  For example < and > mark the start and end of a field. |
 | Field name        | The name of a field.  This is alpha numeric, starting with a letter. |
 | Label             | When a size refers to a previous field name it is called a label.
