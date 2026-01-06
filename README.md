@@ -1,3 +1,6 @@
+“
+”
+
 <p align="center">Binary Protocol Documentation Standard</p>
 <p align="center">1.0</p>
 
@@ -128,4 +131,14 @@ A literal value is a constant value that must match.  These are numbers or strin
 | <0xFF\|0xEE>      | Can match 0xFF OR 0xEE |
 | <"Hello">         | Must match 0x48 0x65 0x6c 0x6c 0x6f |
 | <"Hello"\|"Bye">  | Can match 0x48 0x65 0x6c 0x6c 0x6f, OR 0x42 0x79 0x65 |
+
+### Assigned value
+The assigned value is the same as a Literal value but with a field name.  The literal value is after a equal sign (=) and follows the same rules as a literal.
+
+#### Examples
+| BPDS                      | Description |
+| ---                       | ---         |
+| <Name=0xFF>               | Field has the name “Name” as must match the value 0xFF |
+| \<Start=0xFF\|0xEE\>      | Field has the name “Start” and can match 0xFF or 0xEE |
+| <Command="Hello"\|"Bye">  | Field has the name “Command” and can match 0x48 0x65 0x6c 0x6c 0x6f, OR 0x42 0x79 0x65 |
 
