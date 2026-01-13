@@ -12,15 +12,17 @@ a standard format that is human readable, intuitive, and text based.
 The hope is that will improve the readability of the documentation for
 byte based protocols.</p>
 
-<p>The format is well defined and designed so that a machine can parse a
-BPDS definition and be able to decode what bytes in a protocol are for
-what.  It can not interpret the meaning of the byte, but would be able to
-extract the structure of the packet, knowing how to recognize the start and
-end of the packet and label the parts.</p>
-<p>The BPDS does not try to represent possible states, message responses,
-the flow of a protocol, handshaking, or how the protocol should be used.  
-It just tries to explain the structure of a packet of data, not how to work
-with it.</p>
+<p>The format was designed to be used by humans to document byte based binary
+protocols in a simple to understand format.  It tries to keep things simple
+whenever possible, and doesn't try to cover every possible use case.  BPDS
+does not try to represent possible states, message responses, the flow of a
+protocol, handshaking, or how the protocol should be used. It just tries to
+explain the structure of a packet of data, not how to work with it.</p>
+
+<p>BPDS was also designed so that a machine can parse a BPDS definition and
+be able to decode what bytes in a protocol are for what. It can not interpret
+the meaning of a byte, only extract the structure of the packet, knowing how
+to recognize the start and end of the packet and label the parts.</p>
 
 <h1>Example</h1>
 <p>We start with an example to give an idea of how this works.</p>
